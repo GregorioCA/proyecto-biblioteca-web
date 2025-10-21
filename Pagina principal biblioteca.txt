@@ -129,7 +129,6 @@
     <h1> Biblioteca Virtual</h1>
     <nav>
       <a href="#">Inicio</a>
-      <a href="#">Mi Biblioteca</a>
       <a href="#">Categorias</a>
       <a href="#">Perfil</a>
     </nav>
