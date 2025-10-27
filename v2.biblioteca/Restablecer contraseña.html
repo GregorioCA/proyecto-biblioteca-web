@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recuperar Contraseña | Biblioteca Virtual</title>
+  <style>
+    :root {
+      --verde-claro: #d9e0c6;
+      --verde-medio: #c8d0b0;
+      --verde: #a8af8c;
+      --verde-oscuro: #8c9270;
+      --verde-profundo: #6e7359;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", "Segoe UI", sans-serif;
+      background-color: var(--verde-claro);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    .recover-container {
+      background-color: var(--verde-medio);
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+      width: 380px;
+      padding: 40px 30px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .recover-container:hover {
+      transform: scale(1.02);
+    }
+
+    h1 {
+      color: var(--verde-profundo);
+      margin-bottom: 10px;
+      font-size: 1.8em;
+      letter-spacing: 1px;
+    }
+
+    p {
+      color: #444;
+      margin-bottom: 25px;
+      font-size: 0.95em;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 25px;
+      background-color: #f8f8f8;
+      font-size: 1em;
+      outline: none;
+      text-align: center;
+      transition: background-color 0.2s;
+    }
+
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      background-color: #fff;
+      box-shadow: 0 0 6px var(--verde-oscuro);
+    }
+
+    .error {
+      color: #a33;
+      font-size: 0.85em;
+      margin-top: -5px;
+    }
+
+    button {
+      width: 60%;
+      padding: 12px;
+      background-color: var(--verde-profundo);
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: var(--verde-oscuro);
+      transform: scale(1.05);
+    }
+
+    .links {
+      margin-top: 20px;
+      font-size: 0.9em;
+    }
+
+    .links a {
+      color: var(--verde-profundo);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      text-align: center;
+      width: 100%;
+      color: var(--verde-profundo);
+      font-size: 0.8em;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="recover-container">
+    <h1>Recuperar Contraseña</h1>
+    <p>Introduce tu correo y una nueva contraseña segura para tu cuenta</p>
+
+    <form id="recoverForm">
+      <input type="email" id="email" placeholder="Correo electrónico" required><br>
+      <input type="password" id="newPassword" placeholder="Nueva contraseña" required><br>
+      <div class="error" id="errorMsg"></div>
+      <button type="submit">Actualizar Contraseña</button>
+    </form>
+
+    <div class="links">
+      <a href="Login Biblioteca.html">Volver al inicio de sesión</a>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Biblioteca Virtual | ISC Autor: Dircio
+  </footer>
+
+  <script>
+    const form = document.getElementById("recoverForm");
+    const passwordInput = document.getElementById("newPassword");
+    const errorMsg = document.getElementById("errorMsg");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const password = passwordInput.value;
+
+      // Validación de seguridad
+      const minLength = password.length >= 8;
+      const hasUpper = /[A-Z]/.test(password);
+      const hasNumber = /[0-9]/.test(password);
+
+      if (!minLength || !hasUpper || !hasNumber) {
+        errorMsg.textContent = "La contraseña debe tener al menos 8 caracteres, una mayúscula y un número.";
+        passwordInput.style.boxShadow = "0 0 6px #a33";
+        return;
+      }
+
+      errorMsg.textContent = "";
+      alert("Tu contraseña ha sido actualizada correctamente.");
+      window.location.href = "Login Biblioteca.html";
+    });
+  </script>
+
+</body>
+</html>

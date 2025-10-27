@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio de Sesión | Biblioteca Virtual</title>
+  <style>
+    :root {
+      --verde-claro: #d9e0c6;
+      --verde-medio: #c8d0b0;
+      --verde: #a8af8c;
+      --verde-oscuro: #8c9270;
+      --verde-profundo: #6e7359;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", "Segoe UI", sans-serif;
+      background-color: var(--verde-claro);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    .login-container {
+      background-color: var(--verde-medio);
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+      width: 380px;
+      padding: 40px 30px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .login-container:hover {
+      transform: scale(1.02);
+    }
+
+    h1 {
+      color: var(--verde-profundo);
+      margin-bottom: 10px;
+      font-size: 1.8em;
+      letter-spacing: 1px;
+    }
+
+    p {
+      color: #444;
+      margin-bottom: 25px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 25px;
+      background-color: #f8f8f8;
+      font-size: 1em;
+      outline: none;
+      text-align: center;
+      transition: background-color 0.2s;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      background-color: #fff;
+      box-shadow: 0 0 6px var(--verde-oscuro);
+    }
+
+    button {
+      width: 60%;
+      padding: 12px;
+      background-color: var(--verde-profundo);
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: var(--verde-oscuro);
+      transform: scale(1.05);
+    }
+
+    .links {
+      margin-top: 20px;
+      font-size: 0.9em;
+    }
+
+    .links a {
+      color: var(--verde-profundo);
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: 500;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      text-align: center;
+      width: 100%;
+      color: var(--verde-profundo);
+      font-size: 0.8em;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h1>Biblioteca Virtual</h1>
+    <p>Inicia sesión para acceder a tu perfil y tus libros</p>
+
+    <form action="#" method="post">
+      <input type="text" placeholder="Usuario o correo electrónico" required><br>
+      <input type="password" placeholder="Contraseña" required><br>
+      <button type="submit">Iniciar Sesión</button>
+    </form>
+
+    <div class="links">
+      <a href="#">¿Olvidaste tu contraseña?</a> 
+      <a href="#">Crear cuenta</a>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Biblioteca Virtual | ISC Autor: Dircio
+  </footer>
+
+  <script>
+  const form = document.querySelector("form");
+  const inputs = form.querySelectorAll("input");
+  const mensaje = document.createElement("p");
+  mensaje.style.color = "red";
+  form.appendChild(mensaje);
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const usuarioInput = inputs[0].value.trim();
+    const passwordInput = inputs[1].value.trim();
+
+    const datosGuardados = JSON.parse(localStorage.getItem("usuarioRegistrado"));
+
+    if (!datosGuardados) {
+      mensaje.textContent = "No hay usuarios registrados.";
+      return;
+    }
+
+    if (
+      (usuarioInput === datosGuardados.usuario || usuarioInput === datosGuardados.correo) &&
+      passwordInput === datosGuardados.password
+    ) {
+      localStorage.setItem("sesionActiva", JSON.stringify(datosGuardados));
+      mensaje.style.color = "green";
+      mensaje.textContent = "Acceso concedido. Redirigiendo...";
+      setTimeout(() => {
+        window.location.href = "Pagina principal biblioteca.html";
+      }, 1000);
+    } else {
+      mensaje.style.color = "red";
+      mensaje.textContent = "Usuario o contraseña incorrectos.";
+    }
+  });
+
+  // 🆕 Ajustar enlace "Crear cuenta"
+  const crearCuenta = document.querySelector('.links a:last-child');
+  if (crearCuenta) crearCuenta.href = "Crear cuenta.html";
+</script>
+
+
+</body>
+</html>

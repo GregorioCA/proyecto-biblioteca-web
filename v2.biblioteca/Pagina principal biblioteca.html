@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biblioteca Virtual</title>
+  <style>
+    :root {
+      --verde-claro: #d9e0c6;
+      --verde-medio: #c8d0b0;
+      --verde: #a8af8c;
+      --verde-oscuro: #8c9270;
+      --verde-profundo: #6e7359;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background-color: var(--verde-claro);
+      color: #222;
+    }
+
+    header {
+      background-color: var(--verde-profundo);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.6em;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 12px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .buscador {
+      padding: 20px;
+      text-align: center;
+      background-color: var(--verde-medio);
+    }
+
+    .buscador input {
+      width: 60%;
+      padding: 12px;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+      font-size: 1em;
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .contenedor {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 20px;
+      padding: 30px;
+    }
+
+    .seccion {
+      padding: 20px;
+      border-radius: 8px;
+      color: #fff;
+    }
+
+    .destacados { background-color: var(--verde); grid-column: span 2; }
+    .recomendados { background-color: var(--verde-oscuro); }
+    .recientes { background-color: var(--verde-profundo); grid-column: span 3; }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.2em;
+      border-bottom: 2px solid rgba(255,255,255,0.4);
+      padding-bottom: 5px;
+    }
+
+    .libros {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .libro {
+      background: rgba(255,255,255,0.1);
+      padding: 10px;
+      border-radius: 6px;
+      text-align: center;
+      transition: transform 0.2s;
+      color: #fff;
+      font-size: 0.9em;
+    }
+
+    .libro:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.2);
+    }
+
+    .libro img {
+      width: 100%;
+      border-radius: 4px;
+    }
+
+    footer {
+      background-color: var(--verde-profundo);
+      color: #eee;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+
+<script>
+  // 🟢 Verificar si hay sesión activa
+  const usuarioActivo = JSON.parse(localStorage.getItem("sesionActiva"));
+  if (!usuarioActivo) {
+    window.location.href = "Login Biblioteca.html";
+  }
+
+  // 🟢 Conectar enlaces del menú
+  const enlaces = document.querySelectorAll("header nav a");
+  if (enlaces.length >= 3) {
+    enlaces[0].href = "Pagina principal biblioteca.html"; // Inicio
+    enlaces[1].href = "#"; // Categorías (puedes cambiar después)
+    enlaces[2].href = "Perfil usuario.html"; // Perfil
+  }
+
+  // 🟢 Crear o usar botón de cerrar sesión
+  let btnCerrar = document.getElementById("cerrarSesion");
+  if (!btnCerrar) {
+    btnCerrar = document.createElement("button");
+    btnCerrar.id = "cerrarSesion";
+    btnCerrar.textContent = "Cerrar sesión";
+    btnCerrar.style.marginLeft = "10px";
+    btnCerrar.style.background = "#fff";
+    btnCerrar.style.border = "none";
+    btnCerrar.style.borderRadius = "8px";
+    btnCerrar.style.padding = "6px 12px";
+    btnCerrar.style.cursor = "pointer";
+    btnCerrar.style.fontWeight = "600";
+    const header = document.querySelector("header nav");
+    if (header) header.appendChild(btnCerrar);
+  }
+
+  // 🟢 Evento para cerrar sesión
+  btnCerrar.addEventListener("click", () => {
+    localStorage.removeItem("sesionActiva");
+    window.location.href = "Login Biblioteca.html";
+  });
+</script>
+
+<body>
+  <header>
+    <h1> Biblioteca Virtual</h1>
+    <nav>
+      <a href="#">Inicio</a>
+      <a href="#">Categorias</a>
+      <a href="#">Perfil</a>
+    </nav>
+  </header>
+
+  <div class="buscador">
+    <input type="text" placeholder=" Buscar libros, autores o géneros...">
+  </div>
+
+  <div class="contenedor">
+    <!-- DESTACADOS -->
+    <div class="seccion destacados">
+      <h2>Destacados</h2>
+      <div class="libros">
+        <div class="libro">
+          <img src="https://img.freepik.com/vector-gratis/libro-realista-marron_1110-762.jpg" alt="Cálculo">
+          <p>Cálculo - James Stewart</p>
+        </div>
+        <div class="libro">
+          <img src="https://img.freepik.com/vector-gratis/libro-realista-marron_1110-762.jpg" alt="Física">
+          <p>Física Universitaria - Sears & Zemansky</p>
+        </div>
+        <div class="libro">
+          <img src="https://img.freepik.com/vector-gratis/libro-realista-marron_1110-762.jpg" alt="Programación">
+          <p>Fundamentos de Programación - Luis Joyanes</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECOMENDADOS -->
+    <div class="seccion recomendados">
+      <h2>Ingeniería Recomendada</h2>
+      <div class="libros">
+        <div class="libro">
+          <img src="https://img.freepik.com/vector-gratis/libro-realista-marron_1110-762.jpg" alt="Álgebra Lineal">
+          <p>Álgebra Lineal - Stanley Grossman</p>
+        </div>
+        <div class="libro">
+          <img src="https://img.freepik.com/vector-gratis/libro-realista-marron_1110-762.jpg" alt="Circuitos">
+          <p>Principios de Circuitos Eléctricos - Boylestad</p>
+        </div>
+        <div class="libro">
+          <img src="https://img.freepik.com/vector-gratis/libro-realista-marron_1110-762.jpg" alt="Estructuras">
+          <p>Mecánica de Materiales - Beer & Johnston</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEÍDOS RECIENTEMENTE -->
+    <div class="seccion recientes">
+      <h2>Leidos recientemente </h2>
+      <div class="libros">
+        <div class="libro">
+          <img src="https://img.freepik.com/vector-gratis/libro-realista-marron_1110-762.jpg" alt="Química">
+          <p>Química - Raymond Chang</p>
+        </div>
+        <div class="libro">
+          <img src="https://img.freepik.com/vector-gratis/libro-realista-marron_1110-762.jpg" alt="Termodinámica">
+          <p>Termodinámica - Yunus Çengel</p>
+        </div>
+        <div class="libro">
+          <img src="https://img.freepik.com/vector-gratis/libro-realista-marron_1110-762.jpg" alt="Sistemas Operativos">
+          <p>Sistemas Operativos - William Stallings</p>
+        </div>
+        <div class="libro">
+          <img src="https://img.freepik.com/vector-gratis/libro-realista-marron_1110-762.jpg" alt="Base de Datos">
+          <p>Fundamentos de Bases de Datos - Elmasri & Navathe</p>
+        </div>
+        <div class="libro">
+          <img src="https://img.freepik.com/vector-gratis/libro-realista-marron_1110-762.jpg" alt="Redes">
+          <p>Redes de Computadoras - Andrew Tanenbaum</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Biblioteca Virtual | ISC Autor: Dircio
+  </footer>
+</body>
+</html>
+
+
+        
